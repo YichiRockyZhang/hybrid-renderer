@@ -9,7 +9,7 @@ def pair(t):
 class ViT(nn.Module):
 
     # channels should = 6 if two images are input 
-    def __init__(self, *, image_dims, patch_size, num_classes, dim, transformer, pool = 'cls', channels = 3):
+    def __init__(self, *, image_dims, patch_size, dim, transformer, pool = 'cls', channels = 3):
         super().__init__()
         image_size_h, image_size_w = image_dims
         # image_size_h, image_size_w = pair(image_dims)
