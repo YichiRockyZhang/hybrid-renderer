@@ -5,6 +5,7 @@ from torch.utils.data import Dataset
 from torchvision import datasets
 from torchvision.transforms import ToTensor
 from torchvision.io import read_image
+from PIL.JpegImagePlugin import JpegImageFile
 
 NUM_IMAGES = 31253
 
@@ -48,6 +49,9 @@ class HybridDataset(Dataset):
         albedo = read_image(albedo_image_path).float()
         low_spp = read_image(low_spp_image_path).float()
         gt = read_image(gt_image_path).float()
+        # albedo = JpegImageFile(albedo_image_path)
+        # low_spp = JpegImageFile(low_spp_image_path)
+        # gt = JpegImageFile(gt_image_path)
 
         # apply any transformations before stacking
         if self.transform:
@@ -56,6 +60,7 @@ class HybridDataset(Dataset):
             gt = self.transform(gt)
 
         # stack images (now of H x W x 6):
-        image = self.__stack_images(low_spp, albedo)
+        # image = self.__stack_images(low_spp, albedo)
+        image = low_spp, albedo
 
-        return image, gt
+        return low_spp, albedo, gt
